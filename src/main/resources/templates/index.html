@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <!-- ファイルのアップロードボタンの実装 -->
+    <form method="post" action="/" enctype="multipart/form-data">
+        <input type="submit" value="ファイルをアップロード">
+        <input type="file" name="upload_file">
+    </form>
+    <p th:text="${file_name}"></p>
+    <table>
+    <!-- ここから下が結果表示 -->
+        <tr th:each="line:${file_contents}">
+            <td th:text=${line}></td>
+        </tr>
+    </table>
+</body>
+</html>
