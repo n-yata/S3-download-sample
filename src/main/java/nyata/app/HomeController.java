@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.S3Object;
@@ -27,8 +31,17 @@ public class HomeController {
         final String FILE_NAME = System.getenv("AWS_S3_FILENAME");
         final String REGION_NAME = System.getenv("AWS_S3_REGION");
 
-        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(REGION_NAME).build();
+        // 認証情報を用意
+        AWSCredentials credentials = new BasicAWSCredentials("AKIA5LH346FTN4KADLTD", "DLUjnaq9KcWL3z3zi0aj4RYDNeH07nDYjmNZEGpj");
 
+        // クライアントを生成
+        AmazonS3 s3 = AmazonS3ClientBuilder
+                .standard()
+                // 認証情報を設定
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                // リージョンを AP_NORTHEAST_1に設定
+                .withRegion(Regions.AP_NORTHEAST_1)
+                .build();
         try {
             S3Object o = s3.getObject(BUCKET_NAME, FILE_NAME);
             S3ObjectInputStream s3is = o.getObjectContent();
