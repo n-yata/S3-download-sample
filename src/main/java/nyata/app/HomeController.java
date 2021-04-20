@@ -29,10 +29,9 @@ public class HomeController {
     public String post() {
         final String BUCKET_NAME = System.getenv("AWS_S3_BUCKETNAME");
         final String FILE_NAME = System.getenv("AWS_S3_FILENAME");
-        final String REGION_NAME = System.getenv("AWS_S3_REGION");
 
         // 認証情報を用意
-        AWSCredentials credentials = new BasicAWSCredentials("AKIA5LH346FTN4KADLTD", "DLUjnaq9KcWL3z3zi0aj4RYDNeH07nDYjmNZEGpj");
+        AWSCredentials credentials = new BasicAWSCredentials("アクセスキー", "シークレットキー");
 
         // クライアントを生成
         AmazonS3 s3 = AmazonS3ClientBuilder
